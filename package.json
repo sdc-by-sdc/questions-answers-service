@@ -1,0 +1,31 @@
+{
+  "name": "questions-answers-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "start": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sdc-by-sdc/questions-answers-service.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sdc-by-sdc/questions-answers-service/issues"
+  },
+  "homepage": "https://github.com/sdc-by-sdc/questions-answers-service#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.1",
+    "eslint-config-hackreactor": "github:hackreactor-labs/eslint-config-hackreactor",
+    "jest": "^27.2.5",
+    "nodemon": "^2.0.13"
+  }
+}
