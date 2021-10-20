@@ -9,31 +9,61 @@ db.once('open', function () {
   console.log('db connection successful!');
 });
 
-let qaSchema = new mongoose.Schema({
-  productId: Number,
-  questions: [{
-    questionId: Number,
-    questionBody: String,
-    questionDate: Date,
-    askerName: String,
-    askerEmail: String,
-    helpfulness: Number,
-    reported: Number,
-    answers: [{
-      answerId: Number,
-      answerBody: String,
-      answerDate: Date,
-      answererName: String,
-      answererEmail: String,
-      helpfulness: Number,
-      reported: Number,
-      photos: [{
-        photoId: Number,
-        url: String
-      }]
-    }]
-  }]
-});
+//PREVIOUS SCHEMA-------
+// let qaSchema = new mongoose.Schema({
+//   productId: Number,
+//   questions: [{
+//     questionId: Number,
+//     questionBody: String,
+//     questionDate: Date,
+//     askerName: String,
+//     askerEmail: String,
+//     helpfulness: Number,
+//     reported: Number,
+//     answers: [{
+//       answerId: Number,
+//       answerBody: String,
+//       answerDate: Date,
+//       answererName: String,
+//       answererEmail: String,
+//       helpfulness: Number,
+//       reported: Number,
+//       photos: [{
+//         photoId: Number,
+//         url: String
+//       }]
+//     }]
+//   }]
+// });
+//----------------------
 
-const Question = mongoose.model('Question', qaSchema);
+// let questionSchema = new mongoose.Schema({
+//   questionId: Number,
+//   productId: Number,
+//   questionBody: String,
+//   questionDate: Date,
+//   askerName: String,
+//   askerEmail: String,
+//   reported: Number,
+//   helpfulness: Number
+// });
+
+// let answerSchema = new mongoose.Schema({
+//   answerId: Number,
+//   questionId: Number,
+//   answerBody: String,
+//   answerDate: Date,
+//   answererName: String,
+//   answererEmail: String,
+//   reported: Number,
+//   helpfulness: Number
+// });
+
+// let photoSchema = new mongoose.Schema({
+//   photoId: Number,
+//   answerId: Number,
+//   url: String
+// });
+
+// const Question = mongoose.model('Question', qaSchema);
 
