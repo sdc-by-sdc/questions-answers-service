@@ -7,7 +7,14 @@ const questionList = (req, res) => {
   //req.query:  { product_id: '1', page: '1', count: '100' }
   const { product_id, page, count } = req.query;
 
-  getQuestionsForProduct(product_id, page, count);
+  getQuestionsForProduct(product_id, page, count, (err, finalResponse) => {
+    if (err) {
+      console.log('err logged in getQuestionsForProduct controllers/questionController', err);
+    } else {
+      console.log('RESPONSE: ', finalResponse);
+    }
+  });
+
 
   res.end();
 };
