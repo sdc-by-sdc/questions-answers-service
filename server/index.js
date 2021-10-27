@@ -17,3 +17,6 @@ app.listen(port, () => {
   console.log(`Q&A Servive listening at http://localhost:${port}`);
 });
 
+// //Used for testing
+// module.exports = app;
+

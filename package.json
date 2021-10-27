@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
-    "start": "node server/index.js"
+    "start": "nodemon server/index.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "eslint": "^8.0.1",
     "eslint-config-hackreactor": "github:hackreactor-labs/eslint-config-hackreactor",
     "jest": "^27.2.5",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.13",
+    "supertest": "^6.1.6"
   }
 }
