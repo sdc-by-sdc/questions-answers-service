@@ -1,4 +1,5 @@
 const { getQuestionsForProduct } = require('../models/question.js');
+const { getAnswerForQuestion } = require('../models/answer.js');
 
 //display a list of questions
 const questionList = (req, res) => {
@@ -12,10 +13,10 @@ const questionList = (req, res) => {
       console.log('err logged in getQuestionsForProduct controllers/questionController', err);
     } else {
       console.log('RESPONSE: ', finalResponse);
+      //iterate over finalResponse.result
+      //invoke getAnswerForQuestion(question_id, page, count)
     }
   });
-
-
   res.end();
 };
 

@@ -37,6 +37,7 @@ const getQuestionsForProduct = (product_id, page = 1, count = 100, callback) => 
     })
     .catch((err) => {
       console.log('error in getQuestionsForProduct in models/question');
+      callback(err);
     });
 };
 
