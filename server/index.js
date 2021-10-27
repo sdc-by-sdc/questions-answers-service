@@ -1,8 +1,14 @@
 const express = require('express');
 const app = express();
 const db = require('../database/index.js');
+const { importQuestions, importAnswers, importPhotosIntoAnswer } = require('../database/import.js');
 const port = 3030;
 
+// importQuestions(); //45 minutes, 3,518,963 questions
+// importAnswers();
+// importPhotosIntoAnswer();
+
+//API ROUTES
 app.get('/qa/questions', (req, res) => {
   console.log('reached /qa/questions endpoint');
   res.end();
