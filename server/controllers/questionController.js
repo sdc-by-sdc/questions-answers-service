@@ -26,8 +26,13 @@ const questionCreatePost = (req, res) => {
   const { body, name, email, product_id } = req.body;
 
   //invoke createQuestionForProduct(body, name, email, productId)
-  createQuestionForProduct(body, name, email, product_id)
-  res.end();
+  createQuestionForProduct(body, name, email, product_id, (err, results) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(results);
+    }
+  })
 };
 
 //mark question as helpful

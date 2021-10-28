@@ -46,29 +46,25 @@ const createQuestionForProduct = (body, name, email, product_id, callback, repor
   console.log('createQuestionForProduct invoked!');
   let isoDate = new Date().toISOString();
 
-  findIdForNextDocument('questionsTrack', 'question_id');
-  // console.log('newValue: ', newValue);
-  // let newQuestionDocument = {
-  //   questionId: findIdForNextDocument('questionsTrack', 'question_id'),
-  //   productId: product_id,
-  //   questionBody: body,
-  //   questionDate: isoDate,
-  //   askerName: name,
-  //   askerEmail: email,
-  //   reported: reported,
-  //   helpfulness: helpfulness
-  // }
-
-  // Question.create(newQuestionDocument)
-  //   .then(results => {
-  //     console.log(results);
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //   })
-
-  // console.log(body, name, email, product_id, reported, helpfulness, isoDate)
-
+  findIdForNextDocument('questionsTrack', 'question_id', (newId) => {
+    let newQuestionDocument = {
+      questionId: newId,
+      productId: product_id,
+      questionBody: body,
+      questionDate: isoDate,
+      askerName: name,
+      askerEmail: email,
+      reported: reported,
+      helpfulness: helpfulness
+    }
+    Question.create(newQuestionDocument)
+      .then(results => {
+        callback(null, results);
+      })
+      .catch(err => {
+        callback(err);
+      })
+  });
 }
 
 module.exports = { getQuestionsForProduct, createQuestionForProduct };
