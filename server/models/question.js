@@ -1,4 +1,4 @@
-const db = require('../../database');
+// const db = require('../../database');
 const { Question } = require('../../database/schemas.js');
 
 const getQuestionsForProduct = (product_id, page = 1, count = 100, callback) => {

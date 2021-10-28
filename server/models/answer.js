@@ -1,4 +1,4 @@
-const db = require('../../database');
+// const db = require('../../database');
 const { Answer } = require('../../database/schemas.js');
 
 const getAnswersForQuestion = (question_id, page, count, callback) => {
