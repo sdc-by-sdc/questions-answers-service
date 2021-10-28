@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
-    "start": "nodemon server/index.js"
+    "start": "node server/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,11 @@
   },
   "homepage": "https://github.com/sdc-by-sdc/questions-answers-service#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "csvtojson": "^2.0.10",
+    "express": "^4.17.1",
+    "fast-csv": "^4.3.6",
+    "mongodb": "^4.1.2",
+    "mongoose": "^6.0.11"
   },
   "devDependencies": {
     "eslint": "^8.0.1",

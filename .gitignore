@@ -4,6 +4,7 @@ jspm_packages/
 coverage/
 .eslintcache
 .env
+*.csv
 
 
 # Logs
