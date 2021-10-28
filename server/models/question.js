@@ -1,9 +1,10 @@
 // const db = require('../../database');
 const { Question } = require('../../database/schemas.js');
+const { findIdForNextDocument } = require('../../database/index.js');
 
 const getQuestionsForProduct = (product_id, page = 1, count = 100, callback) => {
-  console.log('model getQuestionsForProduct invoked! ', product_id, page, count);
-  console.log(typeof product_id, typeof page, typeof count);
+  // console.log('model getQuestionsForProduct invoked! ', product_id, page, count);
+  // console.log(typeof product_id, typeof page, typeof count);
 
   let finalResponse = {
     product_id: product_id,
@@ -41,4 +42,33 @@ const getQuestionsForProduct = (product_id, page = 1, count = 100, callback) => 
     });
 };
 
-module.exports = { getQuestionsForProduct };
+const createQuestionForProduct = (body, name, email, product_id, callback, reported = 0, helpfulness = 0) => {
+  console.log('createQuestionForProduct invoked!');
+  let isoDate = new Date().toISOString();
+
+  findIdForNextDocument('questionsTrack', 'question_id');
+  // console.log('newValue: ', newValue);
+  // let newQuestionDocument = {
+  //   questionId: findIdForNextDocument('questionsTrack', 'question_id'),
+  //   productId: product_id,
+  //   questionBody: body,
+  //   questionDate: isoDate,
+  //   askerName: name,
+  //   askerEmail: email,
+  //   reported: reported,
+  //   helpfulness: helpfulness
+  // }
+
+  // Question.create(newQuestionDocument)
+  //   .then(results => {
+  //     console.log(results);
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   })
+
+  // console.log(body, name, email, product_id, reported, helpfulness, isoDate)
+
+}
+
+module.exports = { getQuestionsForProduct, createQuestionForProduct };

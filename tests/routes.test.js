@@ -31,7 +31,7 @@ describe('testing', () => {
     await supertest(app).get('/qa/questions?product_id=1&page=1&count=100')
       .expect(200)
       .then((response) => {
-        console.log(response.body);
+        // console.log(response.body);
         expect(!Array.isArray(response.body)).toBeTruthy();
         // expect(response.body.length).toEqual(1);
 

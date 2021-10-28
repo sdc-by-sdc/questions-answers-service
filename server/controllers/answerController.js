@@ -3,7 +3,7 @@ const { getAnswersForQuestion } = require('../models/answer.js');
 //display a list of answers for a given question
 const answerList = (req, res) => {
   console.log('answerList invoked!');
-  const { question_id } = req.params;
+  const { question_id } = req.params; //could be a potential issue, questionId? not sure.
   const { page, count } = req.query;
   //invoke getAnswersForQuestion(question_id, page, count)
   getAnswersForQuestion(question_id, page, count, (err, answers) => {

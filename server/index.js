@@ -1,5 +1,6 @@
 const app = require('./app.js');
 const db = require('../database/index.js');
+const { importQuestions, importAnswers, importPhotosIntoAnswer } = require('../database/import.js');
 const port = 3030;
 
 // importQuestions(); //45 minutes, 3,518,963 questions
@@ -11,4 +12,4 @@ app.listen(port, () => {
 });
 
 
-//this file runs the express server, database, we use this for development/production.
+//this file connects express server to port 3030, and connects sdcQA database. We use this for development/production.
