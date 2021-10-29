@@ -1,4 +1,4 @@
-const { getAnswersForQuestion } = require('../models/answer.js');
+const { getAnswersForQuestion, markAnswerHelpful } = require('../models/answer.js');
 
 //display a list of answers for a given question
 const answerList = (req, res) => {
@@ -27,7 +27,16 @@ const answerCreatePost = (req, res) => {
 //mark answer as helpful
 const answerHelpfulPut = (req, res) => {
   console.log('put answer helpful params: ', req.params);
-  res.end();
+  const { answer_id } = req.params;
+
+  //invoke markAnswerHelpful(answer_id);
+  markAnswerHelpful(answer_id, (err, results) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(204).send(results);
+    }
+  });
 };
 
 //report an answer
