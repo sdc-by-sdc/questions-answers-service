@@ -10,14 +10,11 @@ const questionList = (req, res) => {
 
   getQuestionsForProduct(product_id, page, count, (err, finalResponse) => {
     if (err) {
-      console.log('err logged in getQuestionsForProduct controllers/questionController', err);
+      res.status(500).send(err);
     } else {
-      console.log('RESPONSE: ', finalResponse);
-      //iterate over finalResponse.result
-      //invoke getAnswerForQuestion(question_id, page, count)
+      res.status(200).send(finalResponse);
     }
   });
-  res.end();
 };
 
 //adds a question for a given product

@@ -12,6 +12,8 @@ const getQuestionsForProduct = (product_id, page = 1, count = 100, callback) => 
     results: []
   };
 
+  counter = 0;
+
   Question.find({ productId: Number(product_id) }).limit(count)
     .then((response) => {
       // console.log(response);
@@ -35,14 +37,22 @@ const getQuestionsForProduct = (product_id, page = 1, count = 100, callback) => 
               answers: finalAnswers
             };
 
-            console.log('QUESTION: ', question);
-            finalResponse.results.push(question);
+            // console.log('QUESTION: ', question);
+            if (reportedBoolean === false) {
+              finalResponse.results.push(question);
+              // console.log('pushed');
+              counter++;
+            } else {
+              counter++;
+            }
 
+            if (counter === response.length) {
+              // console.log('finalfinalfinal: ', finalResponse.results[0]);
+              callback(null, finalResponse);
+            }
           })
-
       });
       // console.log('FINAL RESPONSE: ', finalResponse);
-      callback(null, finalResponse);
     })
     .catch((err) => {
       console.log('error in getQuestionsForProduct in models/question', err);
