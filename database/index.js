@@ -7,6 +7,8 @@ db.once('open', function () {
   console.log('db connection successful!');
 });
 
+//create questionsTrack database, insert one document with total questions count
+
 //collection = 'questionsTrack', idName = 'question_id'
 const findIdForNextDocument = (collectionName, idName, callback) => {
   let incrementedDoc = db.collection(collectionName).findOneAndUpdate(

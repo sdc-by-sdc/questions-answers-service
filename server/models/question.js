@@ -67,4 +67,17 @@ const createQuestionForProduct = (body, name, email, product_id, callback, repor
   });
 }
 
-module.exports = { getQuestionsForProduct, createQuestionForProduct };
+const markQuestionHelpful = (question_id, callback) => {
+  Question.findOneAndUpdate(
+    { questionId: question_id },
+    { $inc: { helpfulness: 1 } }
+  )
+    .then(results => {
+      callback(null, results);
+    })
+    .catch(err => {
+      callback(err);
+    })
+}
+
+module.exports = { getQuestionsForProduct, createQuestionForProduct, markQuestionHelpful };
