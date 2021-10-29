@@ -65,7 +65,9 @@ const getFinalAnswersPromise = (questionId, page, count, finalAnswers = {}) => {
     getAnswersForQuestion(questionId, page, count, (err, answersObj) => {
       let answersCollection = answersObj.results;
       answersCollection.forEach(answer => {
-        finalAnswers[answer.answer_id] = answer;
+        let answerWithId = {}
+        delete Object.assign(answerWithId, answer, { id: answer.answer_id }).answer_id;
+        finalAnswers[answerWithId.id] = answerWithId;
       });
       // console.log('final answersssss: ', finalAnswers);
       resolve(finalAnswers);
