@@ -58,5 +58,18 @@ const markAnswerHelpful = (answer_id, callback) => {
     });
 }
 
-module.exports = { getAnswersForQuestion, markAnswerHelpful };
+const reportAnswer = (answer_id, callback) => {
+  Answer.findOneAndUpdate(
+    { answerId: answer_id },
+    { reported: 1 }
+  )
+    .then(results => {
+      callback(null, results);
+    })
+    .catch(err => {
+      callback(err);
+    });
+}
+
+module.exports = { getAnswersForQuestion, markAnswerHelpful, reportAnswer };
 
