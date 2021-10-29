@@ -80,4 +80,17 @@ const markQuestionHelpful = (question_id, callback) => {
     })
 }
 
-module.exports = { getQuestionsForProduct, createQuestionForProduct, markQuestionHelpful };
+const reportQuestion = (question_id, callback) => {
+  Question.findOneAndUpdate(
+    { questionId: question_id },
+    { reported: 1 }
+  )
+    .then(results => {
+      callback(null, results);
+    })
+    .catch(err => {
+      callback(err);
+    });
+}
+
+module.exports = { getQuestionsForProduct, createQuestionForProduct, markQuestionHelpful, reportQuestion };

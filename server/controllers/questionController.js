@@ -1,4 +1,4 @@
-const { getQuestionsForProduct, createQuestionForProduct, markQuestionHelpful } = require('../models/question.js');
+const { getQuestionsForProduct, createQuestionForProduct, markQuestionHelpful, reportQuestion } = require('../models/question.js');
 const { getAnswerForQuestion } = require('../models/answer.js');
 
 //display a list of questions
@@ -53,7 +53,16 @@ const questionHelpfulPut = (req, res) => {
 //report question
 const questionReportPut = (req, res) => {
   console.log('put question report params: ', req.params);
-  res.end();
+  const { question_id } = req.params;
+
+  //invoke reportQuestion(question_id)
+  reportQuestion(question_id, (err, results) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(204).send(results);
+    }
+  });
 };
 
 module.exports = { questionList, questionCreatePost, questionHelpfulPut, questionReportPut };
