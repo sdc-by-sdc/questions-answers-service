@@ -19,13 +19,16 @@ const answerList = (req, res) => {
 
 //adds an answer to a given question
 const answerCreatePost = (req, res) => {
-  console.log('post answer params: ', req.params);
-  console.log('post answer body: ', req.body);
   const { question_id } = req.params;
   const { body, name, email, photos } = req.body;
 
-  createAnswerForQuestion(body, name, email, photos, question_id);
-  res.end();
+  createAnswerForQuestion(body, name, email, photos, question_id, (err, results) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(results);
+    }
+  });
 };
 
 //mark answer as helpful

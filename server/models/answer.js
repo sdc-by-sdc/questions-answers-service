@@ -71,7 +71,13 @@ const createAnswerForQuestion = (body, name, email, photos, question_id, callbac
           photos: finalPhotos
         };
         console.log(newAnswerDocument);
-        callback(null, newAnswerDocument);
+        Answer.create(newAnswerDocument)
+          .then(result => {
+            callback(null, result);
+          })
+          .catch(err => {
+            callback(err);
+          })
       })
       .catch(err => {
         callback(err);
@@ -86,22 +92,7 @@ const createPhotoDocumentPromise = (url) => {
       resolve(photoObj);
     })
   })
-}
-
-// const getFinalPhotosPromise = (photosArray, finalPhotos = []) => {
-//   return new Promise((resolve, reject) => {
-//     photosArray.forEach(photoURL => {
-//       findIdForNextDocument('photosTrack', 'photo_id', (newPhotoId) => {
-//         finalPhotos.push({
-//           photoId: newPhotoId,
-//           url: photoURL
-//         });
-//       });
-//     });
-//     console.log('final photos: ', finalPhotos);
-//     resolve(finalPhotos);
-//   })
-// }
+};
 
 const markAnswerHelpful = (answer_id, callback) => {
   Answer.findOneAndUpdate(

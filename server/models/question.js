@@ -60,13 +60,22 @@ const getQuestionsForProduct = (product_id, page = 1, count = 100, callback) => 
     });
 };
 
+//getAnswersForQuestion in this one needs to return urls in photo array, currently returns id and url.
 const getFinalAnswersPromise = (questionId, page, count, finalAnswers = {}) => {
   return new Promise((resolve, reject) => {
     getAnswersForQuestion(questionId, page, count, (err, answersObj) => {
       let answersCollection = answersObj.results;
       answersCollection.forEach(answer => {
-        let answerWithId = {}
-        delete Object.assign(answerWithId, answer, { id: answer.answer_id }).answer_id;
+        let photosWithUrlsOnly = answer.photos.map(photo => photo.url);
+        let answerWithId = {
+          id: answer.answer_id,
+          body: answer.body,
+          date: answer.date,
+          answerer_name: answer.answerer_name,
+          helpfulness: answer.helpfulness,
+          photos: photosWithUrlsOnly
+        }
+        // delete Object.assign(answerWithId, answer, { id: answer.answer_id }).answer_id;
         finalAnswers[answerWithId.id] = answerWithId;
       });
       // console.log('final answersssss: ', finalAnswers);
