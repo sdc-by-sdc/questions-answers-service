@@ -1,4 +1,4 @@
-const { getAnswersForQuestion, markAnswerHelpful, reportAnswer } = require('../models/answer.js');
+const { getAnswersForQuestion, markAnswerHelpful, reportAnswer, createAnswerForQuestion } = require('../models/answer.js');
 
 //display a list of answers for a given question
 const answerList = (req, res) => {
@@ -21,6 +21,10 @@ const answerList = (req, res) => {
 const answerCreatePost = (req, res) => {
   console.log('post answer params: ', req.params);
   console.log('post answer body: ', req.body);
+  const { question_id } = req.params;
+  const { body, name, email, photos } = req.body;
+
+  createAnswerForQuestion(body, name, email, photos, question_id);
   res.end();
 };
 

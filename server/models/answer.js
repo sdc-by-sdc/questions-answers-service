@@ -1,5 +1,6 @@
 // const db = require('../../database');
 const { Answer } = require('../../database/schemas.js');
+const { findIdForNextDocument } = require('../../database/index.js');
 
 const getAnswersForQuestion = (question_id, page, count, callback) => {
   console.log('getAnswersForQuestion: ', question_id, page, count);
@@ -47,6 +48,61 @@ const getAnswersForQuestion = (question_id, page, count, callback) => {
     });
 };
 
+const createAnswerForQuestion = (body, name, email, photos, question_id, callback, reported = 0, helpfulness = 0) => {
+  let isoDate = new Date().toISOString();
+
+  //would this run if photos is an empty array?
+  let finalPhotosPromises = photos.map(url => {
+    return createPhotoDocumentPromise(url);
+  });
+
+  findIdForNextDocument('answersTrack', 'answer_id', (newAnswerId) => {
+    Promise.all(finalPhotosPromises)
+      .then(finalPhotos => {
+        let newAnswerDocument = {
+          answerId: newAnswerId,
+          questionId: question_id,
+          answerBody: body,
+          answerDate: isoDate,
+          answererName: name,
+          answererEmail: email,
+          reported: reported,
+          helpfulness: helpfulness,
+          photos: finalPhotos
+        };
+        console.log(newAnswerDocument);
+        callback(null, newAnswerDocument);
+      })
+      .catch(err => {
+        callback(err);
+      });
+  });
+};
+
+const createPhotoDocumentPromise = (url) => {
+  return new Promise((resolve, reject) => {
+    findIdForNextDocument('photosTrack', 'photo_id', (newPhotoId) => {
+      let photoObj = { photoId: newPhotoId, url: url };
+      resolve(photoObj);
+    })
+  })
+}
+
+// const getFinalPhotosPromise = (photosArray, finalPhotos = []) => {
+//   return new Promise((resolve, reject) => {
+//     photosArray.forEach(photoURL => {
+//       findIdForNextDocument('photosTrack', 'photo_id', (newPhotoId) => {
+//         finalPhotos.push({
+//           photoId: newPhotoId,
+//           url: photoURL
+//         });
+//       });
+//     });
+//     console.log('final photos: ', finalPhotos);
+//     resolve(finalPhotos);
+//   })
+// }
+
 const markAnswerHelpful = (answer_id, callback) => {
   Answer.findOneAndUpdate(
     { answerId: answer_id },
@@ -73,5 +129,5 @@ const reportAnswer = (answer_id, callback) => {
     });
 }
 
-module.exports = { getAnswersForQuestion, markAnswerHelpful, reportAnswer };
+module.exports = { getAnswersForQuestion, markAnswerHelpful, reportAnswer, createAnswerForQuestion };
 
