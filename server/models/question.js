@@ -4,7 +4,7 @@ const { findIdForNextDocument } = require('../../database/index.js');
 const { getAnswersForQuestion } = require('./answer.js');
 
 const getQuestionsForProduct = (product_id, page = 1, count = 100, callback) => {
-  // console.log('model getQuestionsForProduct invoked! ', product_id, page, count);
+  console.log('model getQuestionsForProduct invoked! ', product_id);
   // console.log(typeof product_id, typeof page, typeof count);
 
   let finalResponse = {
