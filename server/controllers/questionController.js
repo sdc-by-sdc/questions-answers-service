@@ -12,6 +12,7 @@ const questionList = (req, res) => {
     if (err) {
       res.status(500).send(err);
     } else {
+      console.log('final response!!!!!!: ', finalResponse);
       res.status(200).send(finalResponse);
     }
   });
