@@ -3,7 +3,7 @@ const { Answer } = require('../../database/schemas.js');
 const { findIdForNextDocument } = require('../../database/index.js');
 
 const getAnswersForQuestion = (question_id, page, count, callback) => {
-  console.log('getAnswersForQuestion: ', question_id, page, count);
+  // console.log('getAnswersForQuestion: ', question_id, page, count);
 
   let finalResponse = {
     question: question_id,
