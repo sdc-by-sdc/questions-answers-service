@@ -4,6 +4,7 @@ const { findIdForNextDocument } = require('../../database/index.js');
 
 const getAnswersForQuestion = (question_id, page, count, callback) => {
   // console.log('getAnswersForQuestion: ', question_id, page, count);
+  // console.log(question_id);
 
   let finalResponse = {
     question: question_id,
@@ -12,7 +13,7 @@ const getAnswersForQuestion = (question_id, page, count, callback) => {
     results: []
   };
 
-  Answer.find({ questionId: Number(question_id) }).limit(count)
+  Answer.find({ questionId: Number(question_id) }).hint({ questionId: 1 }).limit(count)
     .then((response) => {
       // console.log('answers: ', response);
       //response is an array of answer objects for a question
@@ -70,7 +71,7 @@ const createAnswerForQuestion = (body, name, email, photos, question_id, callbac
           helpfulness: helpfulness,
           photos: finalPhotos
         };
-        console.log(newAnswerDocument);
+        // console.log(newAnswerDocument);
         Answer.create(newAnswerDocument)
           .then(result => {
             callback(null, result);

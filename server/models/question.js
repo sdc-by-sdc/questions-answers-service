@@ -4,7 +4,7 @@ const { findIdForNextDocument } = require('../../database/index.js');
 const { getAnswersForQuestion } = require('./answer.js');
 
 const getQuestionsForProduct = (product_id, page = 1, count = 100, callback) => {
-  console.log('model getQuestionsForProduct invoked! ', product_id);
+  // console.log('model getQuestionsForProduct invoked! ', product_id);
   // console.log(typeof product_id, typeof page, typeof count);
 
   let finalResponse = {
@@ -14,7 +14,7 @@ const getQuestionsForProduct = (product_id, page = 1, count = 100, callback) => 
 
   counter = 0;
 
-  Question.find({ productId: Number(product_id) }).limit(count)
+  Question.find({ productId: Number(product_id) }).hint({ productId: 1 }).limit(count)
     .then((response) => {
       // console.log(response);
       //response is an array of question objects
@@ -51,6 +51,7 @@ const getQuestionsForProduct = (product_id, page = 1, count = 100, callback) => 
               callback(null, finalResponse);
             }
           })
+          .catch((err) => console.log('err from getFinalAnswers: ', err));
       });
       // console.log('FINAL RESPONSE: ', finalResponse);
     })

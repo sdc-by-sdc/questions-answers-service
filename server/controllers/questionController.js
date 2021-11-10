@@ -20,7 +20,7 @@ const questionList = (req, res) => {
 
 //adds a question for a given product
 const questionCreatePost = (req, res) => {
-  console.log('post question body', req.body);
+  // console.log('post question body', req.body);
   const { body, name, email, product_id } = req.body;
 
   //invoke createQuestionForProduct(body, name, email, productId)
