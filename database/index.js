@@ -5,8 +5,11 @@ dotenv.config();
 if (process.env.MODE === 'TEST') {
   mongoose.connect('mongodb://localhost/sdcQATEST', { useNewUrlParser: true, useUnifiedTopology: true });
 } else {
-  mongoose.connect('mongodb://localhost/sdcQA', { useNewUrlParser: true, useUnifiedTopology: true });
+  mongoose.connect(process.env.MONGOCONNECTION, { useNewUrlParser: true, useUnifiedTopology: true });
 }
+
+//'mongodb://localhost/sdcQA' <--connects to sdcQA on local machine
+//'mongodb://username:password@serverIP/db?authSource=admin' <--connects to deployed db
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
