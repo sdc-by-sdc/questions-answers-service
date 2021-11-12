@@ -22,7 +22,7 @@ let answerSchema = new mongoose.Schema({
   helpfulness: Number,
   photos: [
     {
-      photoId: { type: Number, unique: true },
+      photoId: { type: Number, unique: true, sparse: true },
       answerId: Number,
       url: String
     }

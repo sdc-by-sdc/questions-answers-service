@@ -2,7 +2,7 @@ const { getAnswersForQuestion, markAnswerHelpful, reportAnswer, createAnswerForQ
 
 //display a list of answers for a given question
 const answerList = (req, res) => {
-  console.log('answerList invoked!');
+  // console.log('answerList invoked!');
   const { question_id } = req.params; //could be a potential issue, questionId? not sure.
   const { page, count } = req.query;
   //invoke getAnswersForQuestion(question_id, page, count)
@@ -11,7 +11,7 @@ const answerList = (req, res) => {
       console.log('err logged in getAnswersForQuestion controllers/answerController', err);
       res.status(500).send(`Failed to get answers for question_id ${question_id}`);
     } else {
-      console.log(`Answers for question_id ${question_id}: `, answers);
+      // console.log(`Answers for question_id ${question_id}: `, answers);
       res.status(200).send(answers);
     }
   });
