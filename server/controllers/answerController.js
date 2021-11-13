@@ -5,6 +5,7 @@ const answerList = (req, res) => {
   // console.log('answerList invoked!');
   const { question_id } = req.params; //could be a potential issue, questionId? not sure.
   const { page, count } = req.query;
+  console.log(`answers for ${question_id}`);
   //invoke getAnswersForQuestion(question_id, page, count)
   getAnswersForQuestion(question_id, page, count, (err, answers) => {
     if (err) {
