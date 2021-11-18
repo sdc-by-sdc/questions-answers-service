@@ -8,7 +8,7 @@ const port = 3030;
 // importAnswers();
 // importPhotosIntoAnswer();
 
-app.get('/loaderio-11a92392c832e65d8ec9d3b9bb96374c/', (req, res) => {
+app.get('/loaderio-9d73a342ee027496023fa2b573170f9b/', (req, res) => {
   res.sendFile(path.join(__dirname, 'loader.txt'));
 });
 
