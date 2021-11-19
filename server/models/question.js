@@ -86,7 +86,7 @@ const getFinalAnswersPromise = (questionId, page, count, finalAnswers = {}) => {
 }
 
 const createQuestionForProduct = (body, name, email, product_id, callback, reported = 0, helpfulness = 0) => {
-  console.log('createQuestionForProduct invoked!');
+  // console.log('createQuestionForProduct invoked!');
   let isoDate = new Date().toISOString();
 
   findIdForNextDocument('questionsTrack', 'question_id', (newId) => {
