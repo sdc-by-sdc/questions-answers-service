@@ -35,7 +35,7 @@ const questionCreatePost = (req, res) => {
 
 //mark question as helpful
 const questionHelpfulPut = (req, res) => {
-  console.log('put question helpful params: ', req.params);
+  // console.log('put question helpful params: ', req.params);
   const { question_id } = req.params;
 
   //invoke markQuestionHelpful(question_id)
@@ -50,7 +50,7 @@ const questionHelpfulPut = (req, res) => {
 
 //report question
 const questionReportPut = (req, res) => {
-  console.log('put question report params: ', req.params);
+  // console.log('put question report params: ', req.params);
   const { question_id } = req.params;
 
   //invoke reportQuestion(question_id)
