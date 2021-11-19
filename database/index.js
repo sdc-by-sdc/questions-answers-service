@@ -29,7 +29,7 @@ const findIdForNextDocument = (collectionName, idName, callback) => {
 
   incrementedDoc
     .then(result => {
-      console.log(result.value.value);
+      // console.log(result.value.value);
       callback(result.value.value);
     });
 }
