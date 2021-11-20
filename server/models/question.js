@@ -1,5 +1,5 @@
 // const db = require('../../database');
-const { Question } = require('../../database/schemas.js');
+const { Question, Answer } = require('../../database/schemas.js');
 const { findIdForNextDocument } = require('../../database/index.js');
 const { getAnswersForQuestion } = require('./answer.js');
 
@@ -14,46 +14,70 @@ const getQuestionsForProduct = (product_id, page = 1, count = 100, callback) => 
 
   counter = 0;
 
-  Question.find({ productId: Number(product_id) }).hint({ productId: 1 }).limit(count)
+  Question.find({ productId: Number(product_id), reported: 0 }).hint({ productId: 1 }).limit(count)
     .then((response) => {
       // console.log(response);
       //response is an array of question objects
+      const pending = [];
+
       response.forEach((questionObj) => {
         //create finalQuestion object
         const { questionId, questionBody, questionDate, askerName, askerEmail, reported, helpfulness } = questionObj;
 
-        let reportedBoolean = reported === 0 ? false : true;
+        let answer = Answer.aggregate().match({ questionId: questionObj.questionId, reported: 0 }).exec();
 
-        getFinalAnswersPromise(questionId, page, count)
-          .then(finalAnswers => {
-            // console.log('final answers here!!!!: ', finalAnswers);
+        pending.push(answer);
+      });
+
+      Promise.all(pending)
+        .then(answers => {
+          console.log('ANSWERS: ', answers);
+          response.forEach(questionObj => {
+
+            const { questionId, questionBody, questionDate, askerName, askerEmail, reported, helpfulness } = questionObj;
+
             let question = {
               question_id: questionId,
               question_body: questionBody,
               question_date: questionDate,
               asker_name: askerName,
               question_helpfulness: helpfulness,
-              reported: reportedBoolean,
-              answers: finalAnswers
+              reported: Boolean(reported),
+              answers: {}
             };
 
-            // console.log('QUESTION: ', question);
-            if (reportedBoolean === false) {
-              finalResponse.results.push(question);
-              // console.log('pushed');
-              counter++;
-            } else {
-              counter++;
-            }
+            let finalAnswers = {};
 
-            if (counter === response.length) {
-              // console.log('finalfinalfinal: ', finalResponse.results[0]);
-              callback(null, finalResponse);
-            }
-          })
-          .catch((err) => console.log('err from getFinalAnswers: ', err));
-      });
-      // console.log('FINAL RESPONSE: ', finalResponse);
+            answers.forEach(answersArr => {
+              if (answersArr.length > 0) {
+                answersArr.forEach(answer => {
+                  if (answer.questionId === questionObj.questionId) {
+                    let photosWithUrlsOnly = answer.photos.map(photo => photo.url);
+
+                    finalAnswers[answer.answerId] = {
+                      id: answer.answerId,
+                      body: answer.answerBody,
+                      date: answer.answerDate,
+                      answerer_name: answer.answererName,
+                      helpfulness: answer.helpfulness,
+                      photos: photosWithUrlsOnly
+                    };
+
+                    question.answers = finalAnswers;
+                  }
+                })
+              }
+
+            });
+            finalResponse.results.push(question);
+
+          });
+
+          callback(null, finalResponse);
+        })
+        .catch(err => {
+          console.log('err: ', err);
+        });
     })
     .catch((err) => {
       console.log('error in getQuestionsForProduct in models/question', err);
